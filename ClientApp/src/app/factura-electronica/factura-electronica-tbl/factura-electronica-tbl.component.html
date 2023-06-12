@@ -1,0 +1,128 @@
+<table
+  mat-table
+  matSort
+  matSortDisableClear="true"
+  matSortStart="desc"
+  [dataSource]="dataSource"
+>
+  <!-- Fecha Emisión Column -->
+  <ng-container matColumnDef="FechaEmision">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      <strong>Fecha Emisión</strong>
+    </th>
+    <td mat-cell *matCellDef="let factura">
+      <strong>{{ factura.FechaEmision | date: 'dd/MM/yyyy' }}</strong>
+    </td>
+  </ng-container>
+
+  <!-- Sucursal Column -->
+  <ng-container matColumnDef="NumeroSucursal">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      <strong>Sucursal</strong>
+    </th>
+    <td mat-cell *matCellDef="let factura">{{ factura.NumeroSucursal }}</td>
+  </ng-container>
+
+  <!-- Nombre Column -->
+  <ng-container matColumnDef="NombreSucursal">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      <strong>Nombre</strong>
+    </th>
+    <td mat-cell *matCellDef="let factura">{{ factura.NombreSucursal }}</td>
+  </ng-container>
+
+  <!-- TipoComprobante Column -->
+  <ng-container matColumnDef="Tipo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      <strong>Tipo Comprobante</strong>
+    </th>
+    <td mat-cell *matCellDef="let factura">
+      {{ factura.Tipo }}
+    </td>
+  </ng-container>
+
+  <!-- Total Column -->
+  <ng-container matColumnDef="Total">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      <strong>Total</strong>
+    </th>
+    <td mat-cell *matCellDef="let factura">
+      ${{ factura.TotalConDescuento | pesos }}
+    </td>
+  </ng-container>
+
+  <!-- DNI Column -->
+  <ng-container matColumnDef="DNI">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      <strong>DNI</strong>
+    </th>
+    <td mat-cell *matCellDef="let factura">{{ factura.Dni }}</td>
+  </ng-container>
+
+  <!-- Email Column -->
+  <ng-container matColumnDef="Email">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      <strong>Email</strong>
+    </th>
+    <td mat-cell *matCellDef="let factura" class="truncate-cell">{{ factura.Email }}</td>
+  </ng-container>
+
+  <!-- Estado Column -->
+  <ng-container matColumnDef="Estado">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      <strong>Estado</strong>
+    </th>
+    <td mat-cell *matCellDef="let factura" class="estado-icons">
+      <mat-icon matTooltip="{{ EstadoAFIP[factura.Estado] | uppercase }}"
+        ><ng-container *ngIf="factura.Estado === EstadoAFIP.FACTURADO"
+          >done</ng-container
+        >
+        <ng-container *ngIf="factura.Estado === EstadoAFIP.PENDIENTE"
+          >schedule</ng-container
+        >
+        <ng-container *ngIf="factura.Estado === EstadoAFIP.ERROR"
+          >clear</ng-container
+        >
+      </mat-icon>
+    </td>
+  </ng-container>
+
+  <!-- Acciones Column -->
+  <ng-container matColumnDef="Acciones">
+    <th mat-header-cell *matHeaderCellDef class="acciones">
+      <strong>Acciones</strong>
+    </th>
+    <td mat-cell *matCellDef="let factura" class="acciones">
+      <button
+        class="btn-acciones"
+        mat-button
+        matSuffix
+        mat-icon-button
+        matTooltip="Ver detalle"
+        aria-label="Ver detalle"
+        (click)="expand(factura)"
+      >
+        <mat-icon>description</mat-icon>
+      </button>
+
+      <button
+        class="btn-acciones"
+        mat-button
+        matSuffix
+        mat-icon-button
+        matTooltip="Descargar"
+        aria-label="Descargar"
+        (click)="download(factura)"
+        [disabled]="factura.Estado !== EstadoAFIP.FACTURADO"
+      >
+        <mat-icon>get_app</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-paginator [length]="facturaList" [pageSize]="pageSize" showFirstLastButtons [pageSizeOptions]="[10,20, 25, 50, 75, 100]">  
+</mat-paginator>

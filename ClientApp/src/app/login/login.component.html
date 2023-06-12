@@ -1,0 +1,56 @@
+<div class="app-login">
+  <div class="content-main">
+    <div class="content-logo">
+      <img src="../../assets/images/farmacity.png" />
+    </div>
+
+    <div class="content-login">
+      <form
+        class="form-signin"
+        #loginForm="ngForm"
+        (ngSubmit)="login(loginForm)"
+      >
+        <div *ngIf="invalidLogin" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+
+        <div style="text-align: center">
+          <mat-form-field>
+            <input
+              maxlength="100"
+              matInput
+              type="username"
+              id="username"
+              name="username"
+              ngModel
+              placeholder="E-mail"
+              required
+              autofocus
+            />
+          </mat-form-field>
+        </div>
+
+        <div style="text-align: center">
+          <mat-form-field>
+            <input
+              maxlength="50"
+              matInput
+              type="password"
+              id="password"
+              name="password"
+              ngModel
+              placeholder="Contraseña"
+              required
+            />
+          </mat-form-field>
+        </div>
+
+        <div style="text-align: center">
+          <button mat-raised-button color="primary" type="submit">
+            Ingresar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

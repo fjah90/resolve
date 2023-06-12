@@ -1,0 +1,55 @@
+<h1 mat-dialog-title>Detalle</h1>
+<div mat-dialog-content>
+  <mat-table
+    [dataSource]="dataSource"
+    matSort
+    class="mat-elevation-z8"
+    style="width: 100%"
+  >
+    <!-- Barcode Column -->
+    <ng-container matColumnDef="barcode">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Código de barras
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.barcode }} </mat-cell>
+    </ng-container>
+
+    <!-- Cuf Column -->
+    <ng-container matColumnDef="cuf">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> CUF </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.cuf }} </mat-cell>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Descripción
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.description }} </mat-cell>
+    </ng-container>
+
+    <!-- Amount Column -->
+    <ng-container matColumnDef="amount">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Cantidad
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.amount }} </mat-cell>
+    </ng-container>
+
+    <mat-header-row
+      class="headers"
+      *matHeaderRowDef="displayedColumns"
+    ></mat-header-row>
+    <mat-row *matRowDef="let element; columns: displayedColumns"></mat-row>
+  </mat-table>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-raised-button
+    mat-dialog-close
+    class="button col-3 mat-raised-button"
+    color="primary"
+  >
+    Cerrar
+  </button>
+</div>

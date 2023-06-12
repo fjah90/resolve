@@ -1,0 +1,57 @@
+<ul>
+  <ng-container *ngFor="let item of listItems">
+    <ng-container *ngIf="item.subItems.length > 0 && !item.disabled">
+      <a
+        (click)="showElemento(item)"
+        [ngClass]="{ disabled: item.disabled }"
+        tabindex="-1"
+      >
+        <p [ngClass]="{ collapsed: !item.show }">
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <span class="text-menu">{{ item.description }}</span>
+        </p>
+      </a>
+    </ng-container>
+
+    <ng-container *ngIf="item.subItems.length === 0 && !item.disabled">
+      <a
+        (click)="goToPath(item.routePath)"
+        routerLinkActive="active"
+        [ngClass]="{ disabled: item.disabled }" 
+        tabindex="-1"
+      >
+        <p [ngClass]="{ collapsed: !item.show }">
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <span class="text-menu">{{ item.description }}</span>
+        </p>
+      </a>
+    </ng-container>
+
+    <ul class="collapse" [ngClass]="{ show: item.show }">
+      <ng-container *ngFor="let subItem of item.subItems">
+        <li>
+          <p [ngClass]="{ disabled: subItem.disabled }">
+            <a [routerLink]="item.routePath" routerLinkActive="active">{{
+              subItem.description
+            }}</a>
+          </p>
+        </li>
+      </ng-container>
+    </ul>
+  </ng-container>
+
+  <ul class="close-menu">
+    <li>
+      <p class="version">Versión: {{ version }}</p>
+      <p class="version">Versión Api: {{ apiVersion }}</p>
+    </li>
+    <li>
+      <a (click)="toggleClick()" tabindex="-1" >
+        <p>
+          <mat-icon>keyboard_arrow_left</mat-icon>
+          <span class="text-menu">Cerrar menú</span>
+        </p>
+      </a>
+    </li>
+  </ul>
+</ul>

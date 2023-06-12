@@ -1,0 +1,16 @@
+{
+  "endpoints": {
+    "omni": {
+      "uri": "http://localhost:1163/",
+      "key": null
+    },
+    "fec": {      
+      "uri": "http://localhost:6465",
+      "key": "m/s4AWPVGo3y6WOytyXn341i465r+KKbD5b1VVo7g0w="
+    }
+  },
+  "editarSucursal": "false",
+  "sucursales": [6, 8],
+  "sensitiveRequired": false,
+  "dateWindow": 7
+}

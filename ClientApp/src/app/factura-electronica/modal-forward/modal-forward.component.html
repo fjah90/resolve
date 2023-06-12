@@ -1,0 +1,50 @@
+<div style="display: flex; justify-content: space-between">
+  <div style="display: flex">
+    <div style="margin-top: 4px; margin-right: 5px">
+      <mat-icon class="receipt-icon">receipt_long</mat-icon>
+    </div>
+    <h1 mat-dialog-title>Reenvío de comprobante</h1>
+  </div>
+
+  <button mat-icon-button class="close-button" [mat-dialog-close]="null">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+  </button>
+</div>
+
+<br />
+
+<div style="text-align: center; padding-bottom: 25px">
+  <div mat-dialog-content>
+    <p>Ingrese un email para el reenvío</p>
+    <form>
+      <mat-form-field>
+        <mat-label style="margin-left: 10px; margin-bottom: 10px"
+          >Email</mat-label
+        >
+        <mat-icon matPrefix style="color: #00c244; font-size: 1.1em"
+          >email</mat-icon
+        >
+        <input
+          type="email"
+          matInput
+          [formControl]="email"
+          cdkFocusInitial
+          (keyup.enter)="forward()"
+        />
+      </mat-form-field>
+    </form>
+  </div>
+
+  <br />
+
+  <div mat-dialog-actions style="display: block">
+    <button
+      mat-button
+      class="btn-send"
+      [mat-dialog-close]="forward()"
+      [disabled]="!email.valid"
+    >
+      Enviar <mat-icon class="btn-send-icon">send</mat-icon>
+    </button>
+  </div>
+</div>

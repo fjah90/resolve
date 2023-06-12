@@ -1,0 +1,520 @@
+<div>
+  <div class="container-fluid divContainer">
+    <mat-card class="CardContainer">
+      <mat-card-content>
+        <form [formGroup]="formFiltersDelivery">
+          <mat-toolbar color="default">
+            <mat-toolbar-row>
+              <mat-form-field class="col-2">
+                <mat-select
+                  formControlName="pointOfSale"
+                  placeholder="Caja"
+                  disableOptionCentering
+                >
+                  <mat-option [value]="0"> Todas </mat-option>
+                  <mat-option
+                    *ngFor="let pointOfSale of cmbPointsOfSale"
+                    [value]="pointOfSale"
+                    >{{ pointOfSale }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="col-2">
+                <mat-select
+                  #paymentMethod
+                  formControlName="paymentMethod"
+                  placeholder="Forma de Pago"
+                  disableOptionCentering
+                >
+                  <mat-option [value]="0">Todas</mat-option>
+                  <mat-option
+                    *ngFor="let paymentMethod of cmbPaymentsMethod"
+                    [value]="paymentMethod"
+                    >{{ paymentMethod }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="col-2 form-input">
+                <mat-select
+                  #brand
+                  formControlName="brand"
+                  placeholder="Marca"
+                  disableOptionCentering
+                >
+                  <mat-option [value]="0">Todas</mat-option>
+                  <mat-option *ngFor="let brand of cmbBrands" [value]="brand">{{
+                    brand
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div class="col-2">
+                <mat-form-field class="form-input">
+                  <input
+                    matInput
+                    type="date"
+                    min="01/01/1900"
+                    id="startingDate"
+                    name="startingDate"
+                    formControlName="startingDate"
+                    placeholder="Desde"
+                    [formGroup]="formFiltersDelivery"
+                    (blur)="
+                      dateBlur(
+                        $event,
+                        formFiltersDelivery.controls['startingDate']
+                      )
+                    "
+                  />
+                  <mat-error
+                    *ngIf="formFiltersDelivery.controls['startingDate'].invalid"
+                    >* Obligatorio</mat-error
+                  >
+                </mat-form-field>
+              </div>
+
+              <div class="col-2">
+                <mat-form-field class="form-input">
+                  <input
+                    matInput
+                    type="date"
+                    min="01/01/1900"
+                    id="endingDate"
+                    name="endingDate"
+                    formControlName="endingDate"
+                    placeholder="Hasta"
+                    [formGroup]="formFiltersDelivery"
+                    (blur)="
+                      dateBlur(
+                        $event,
+                        formFiltersDelivery.controls['endingDate']
+                      )
+                    "
+                  />
+                  <mat-error
+                    *ngIf="formFiltersDelivery.controls['endingDate'].invalid"
+                    >* Obligatorio</mat-error
+                  >
+                </mat-form-field>
+              </div>
+            </mat-toolbar-row>
+
+            <mat-toolbar-row>
+              <div class="col-2">
+                <mat-checkbox
+                  color="primary"
+                  formControlName="pendingData"
+                  (change)="search(formFiltersDelivery, true)"
+                >
+                  Pendientes de carga</mat-checkbox
+                >
+              </div>
+
+              <div class="col-9" style="text-align: right">
+                <button
+                  mat-raised-button
+                  class="col-3 mat-raised-button search-btn"
+                  (click)="search(formFiltersDelivery)"
+                >
+                  <mat-icon title="Buscar">search</mat-icon
+                  ><label>Buscar</label>
+                </button>
+
+                <button
+                  mat-raised-button
+                  class="col-3 mat-raised-button cleanfilter-btn"
+                  (click)="cleanFilters()"
+                >
+                  <mat-icon title="Limpiar filtros">delete_sweep</mat-icon
+                  ><label>Limpiar filtros</label>
+                </button>
+              </div>
+            </mat-toolbar-row>
+
+            <mat-toolbar-row
+              *ngIf="isResultadoBusquedaEmpty"
+              class="resultadosBusqueda"
+            >
+              <h5>No se han encontrado registros para su búsqueda.</h5>
+            </mat-toolbar-row>
+            <mat-toolbar-row class="resultadosBusqueda">
+              <p>Tickets pendientes de cargar: {{ pendingTickets }}</p>
+            </mat-toolbar-row>
+          </mat-toolbar>
+        </form>
+
+        <mat-divider></mat-divider>
+
+        <div class="table-responsive">
+          <form [formGroup]="formDataTable">
+            <table
+              id="tickets"
+              mat-table
+              [dataSource]="dataSource"
+              multiTemplateDataRows
+              matSort
+              (matSortChange)="onSortData($event)"
+              style="width: 100%"
+            >
+              <!-- Point of Sale Column -->
+              <ng-container matColumnDef="pointOfSale">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Caja</th>
+                <td mat-cell *matCellDef="let element" [formGroup]="element">
+                  <mat-form-field class="pointOfSaleInput">
+                    <input
+                      matInput
+                      name="pointOfSale"
+                      [formControlName]="
+                        constants.delivery.formData.controls.pointOfSale
+                      "
+                    />
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <!-- Work Date -->
+              <ng-container matColumnDef="workDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+                <td mat-cell *matCellDef="let element" [formGroup]="element">
+                  <mat-form-field class="workDateInput">
+                    <input
+                      matInput
+                      name="workDate"
+                      [value]="
+                        element.get('workDate').value | date: 'dd/MM/yyyy'
+                      "
+                      [formControlName]="
+                        constants.delivery.formData.controls.workDate
+                      "
+                    />
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <!-- No data Column -->
+              <ng-container matColumnDef="noData">
+                <th mat-header-cell *matHeaderCellDef>Sin Datos</th>
+                <td
+                  mat-cell
+                  class="noDataInput"
+                  *matCellDef="let element"
+                  [formGroup]="element"
+                >
+                  <mat-checkbox
+                    keyEnterCheckbox
+                    keyTab
+                    [tableName]="'tickets'"
+                    class="noDataCheckbox"
+                    color="primary"
+                    (change)="noDataChange($event, element)"
+                    [formControlName]="
+                      constants.delivery.formData.controls.noData
+                    "
+                  ></mat-checkbox>
+                </td>
+              </ng-container>
+
+              <!-- Application number Column -->
+              <ng-container matColumnDef="applicationNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Nro. Solicitud
+                </th>
+                <td mat-cell *matCellDef="let element" [formGroup]="element">
+                  <mat-form-field class="applicationNumberInput">
+                    <input
+                      keyTab
+                      [tableName]="'tickets'"
+                      inputNumber
+                      matInput
+                      [formControlName]="
+                        constants.delivery.formData.controls.applicationNumber
+                      "
+                      maxlength="15"
+                    />
+                    <mat-error
+                      *ngIf="element.controls['applicationNumber'].invalid"
+                      >* Obligatorio</mat-error
+                    >
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <!-- Payment Method Column -->
+              <ng-container matColumnDef="paymentMethod">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Forma de Pago
+                </th>
+                <td mat-cell *matCellDef="let element" [formGroup]="element">
+                  <mat-form-field class="paymentMethodInput">
+                    <mat-select
+                      keyTab
+                      [tableName]="'tickets'"
+                      [formControlName]="
+                        constants.delivery.formData.controls.paymentMethod
+                      "
+                      (selectionChange)="
+                        setPaymentMethod($event.value, element)
+                      "
+                    >
+                      <mat-option
+                        *ngFor="let paymentMethod of cmbPaymentsMethod"
+                        [value]="paymentMethod"
+                      >
+                        {{ paymentMethod }}</mat-option
+                      >
+                    </mat-select>
+                    <mat-error *ngIf="element.controls['paymentMethod'].invalid"
+                      >* Obligatorio</mat-error
+                    >
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <!-- Brand Column -->
+              <ng-container matColumnDef="brand">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Marca</th>
+                <td mat-cell *matCellDef="let element" [formGroup]="element">
+                  <mat-form-field class="brandInput">
+                    <mat-select
+                      keyTab
+                      [tableName]="'tickets'"
+                      [formControlName]="
+                        constants.delivery.formData.controls.brand
+                      "
+                    >
+                      <span
+                        *ngIf="
+                          element.controls[
+                            constants.delivery.formData.controls.paymentMethod
+                          ].value === constants.delivery.paymentMethods.debit
+                        "
+                      >
+                        <mat-option
+                          *ngFor="let debitcard of paymentCardsDebit"
+                          [value]="debitcard.descripcion"
+                        >
+                          {{ debitcard.descripcion }}
+                        </mat-option>
+                      </span>
+
+                      <span
+                        *ngIf="
+                          element.controls[
+                            constants.delivery.formData.controls.paymentMethod
+                          ].value === constants.delivery.paymentMethods.credit
+                        "
+                      >
+                        <mat-option
+                          *ngFor="let creditcard of paymentCardsCredit"
+                          [value]="creditcard.descripcion"
+                        >
+                          {{ creditcard.descripcion }}
+                        </mat-option>
+                      </span>
+                    </mat-select>
+
+                    <mat-error *ngIf="element.controls['brand'].invalid"
+                      >* Obligatorio</mat-error
+                    >
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <!-- Fee Column -->
+              <ng-container matColumnDef="fee">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Cuotas
+                </th>
+                <td mat-cell *matCellDef="let element" [formGroup]="element">
+                  <mat-form-field class="feeInput">
+                    <mat-select
+                      keyTab
+                      [tableName]="'tickets'"
+                      [formControlName]="
+                        constants.delivery.formData.controls.fee
+                      "
+                    >
+                      <mat-option
+                        *ngFor="let cuota of cuotas"
+                        [value]="cuota"
+                        >{{ cuota }}</mat-option
+                      >
+                    </mat-select>
+                    <mat-error *ngIf="element.controls['fee'].invalid"
+                      >* Obligatorio</mat-error
+                    >
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <!-- Coupon number Column -->
+              <ng-container matColumnDef="couponNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Nro. Cupón
+                </th>
+                <td mat-cell *matCellDef="let element" [formGroup]="element">
+                  <mat-form-field class="couponNumberInput">
+                    <input
+                      keyTab
+                      [tableName]="'tickets'"
+                      inputNumber
+                      matInput
+                      name="couponNumber"
+                      maxlength="50"
+                      [formControlName]="
+                        constants.delivery.formData.controls.couponNumber
+                      "
+                    />
+                    <mat-error *ngIf="element.controls['couponNumber'].invalid"
+                      >* Obligatorio</mat-error
+                    >
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <!-- Price Column -->
+              <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Importe
+                </th>
+                <td mat-cell *matCellDef="let element" [formGroup]="element">
+                  <mat-form-field class="priceInput">
+                    <input
+                      matInput
+                      name="price"
+                      [value]="element.get('price').value | currency"
+                      [formControlName]="
+                        constants.delivery.formData.controls.price
+                      "
+                    />
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <!-- Dígitos Tarjeta Column -->
+              <ng-container matColumnDef="cardLast4Numbers">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Dígitos Tarjeta
+                </th>
+                <td mat-cell *matCellDef="let element" [formGroup]="element">
+                  <mat-form-field class="cardNumbersInput">
+                    <input
+                      keyTab
+                      [tableName]="'tickets'"
+                      inputNumber
+                      matInput
+                      name="cardNumbers"
+                      maxlength="4"
+                      [formControlName]="
+                        constants.delivery.formData.controls.cardLast4Numbers
+                      "
+                    />
+                    <mat-error
+                      *ngIf="element.controls['cardLast4Numbers'].invalid"
+                      >* Obligatorio</mat-error
+                    >
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <!-- Id Operacion MP Column -->
+              <ng-container matColumnDef="idMPOperation">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Id Operación MP
+                </th>
+                <td mat-cell *matCellDef="let element" [formGroup]="element">
+                  <mat-form-field class="idMPoperation">
+                    <input
+                      keyTab
+                      [tableName]="'tickets'"
+                      matInput
+                      name="idMPOperation"
+                      [formControlName]="
+                        constants.delivery.formData.controls.idMPOperation
+                      "
+                    />
+                    <mat-error *ngIf="element.controls['idMPOperation'].invalid"
+                      >* Obligatorio</mat-error
+                    >
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="save">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Guardar</th>
+                <td mat-cell *matCellDef="let element">
+                  <button
+                    keyTab
+                    matTooltip="Se requiere modificar Nota de Credito relacionada"
+                    [matTooltipDisabled]="!element.controls['containsCreditNote'].value"
+                    matTooltipPosition="above"
+                    [tableName]="'tickets'"
+                    mat-icon-button
+                    [disabled]="!element.controls['containsCreditNote'].value && (element.status === 'INVALID' || !element.dirty)"
+                    class="mat-button-edit"
+                    [color]="element.controls['containsCreditNote'].value ? 'error' : 'primary'"
+                    (click)="element.controls['containsCreditNote'].value? showDialogCreditNote(element) : save(element)"
+                  >
+                    <mat-icon style="font-size: 23px"> save </mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="detail">
+                <th mat-header-cell *matHeaderCellDef>Detalle</th>
+                <td mat-cell *matCellDef="let element">
+                  <button
+                    keyTab
+                    [tableName]="'tickets'"
+                    mat-icon-button
+                    class="mat-button-edit"
+                    color="primary"
+                    (click)="openModalDetail(element)"
+                  >
+                    <mat-icon style="font-size: 23px"> add </mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr
+                mat-header-row
+                *matHeaderRowDef="displayedColumns; sticky: true"
+              ></tr>
+              <tr
+                mat-row
+                *matRowDef="let element; columns: displayedColumns"
+                class="example-element-row"
+              ></tr>
+            </table>
+          </form>
+        </div>
+
+        <mat-paginator
+          [pageSizeOptions]="[20, 25, 50, 75, 100]"
+          showFirstLastButtons
+        ></mat-paginator>
+      </mat-card-content>
+    </mat-card>
+
+    <ng-template #creditNoteDialog>
+      <h2 matDialogTitle>Advertencia</h2>
+      <p matDialogContent>
+        <em>La forma de pago del ticket y de su nota de crédito asociada no coinciden.</em>
+      </p>
+      <br>
+      <p matDialogContent>
+        <em>Pulse "Corregir" para asignarle a la nota de crédito la misma forma de pago que tiene el ticket actualmente.</em>
+      </p>
+      <br>
+      <p matDialogContent>
+        <em>Pulse "Cancelar" para hacerlo más tarde.</em>
+      </p>
+      <mat-dialog-actions class="mat-dialog-buttons">
+        <button mat-button matDialogClose (click)="save()">Corregir</button>
+        <button mat-button matDialogClose>Cancelar</button>
+      </mat-dialog-actions>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,118 @@
+.detail-container {
+  background-color: #e1e1e1;
+  border: 1px solid #0000002b;
+  border-radius: 10px;
+}
+
+mat-icon {
+  color: #00c244;
+  cursor: default;
+}
+
+button mat-icon {
+  cursor: inherit;
+}
+
+.estado-error {
+  color: #e21616;
+}
+
+.detail-name {
+  font-weight: 900 !important;
+}
+
+mat-list-item p {
+  font-weight: 400 !important;
+  font-family: 'Roboto', sans-serif;
+}
+
+.product-title {
+  font-size: 1.2em;
+  color: #4d4d4d;
+  font-weight: lighter;
+  text-align: center;
+}
+
+.grid-list-bg {
+  background-color: #b7b7b752;
+  padding: 10px !important;
+  border-radius: 10px;
+}
+
+.grid-list-tile-bg {
+  /* background-color: #00c2441a; */
+  padding: 5px;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.btn-back {
+  background-color: #2af0002e;
+  border: 1px solid #58cd81;
+  color: #000000a8;
+}
+
+.error-message {
+  background-color: white;
+  border: 1px solid black;
+  width: 80%;
+}
+
+.mat-footer-row {
+  background-color: #a0e9ea;
+  border-top: 1px solid #929292;
+}
+
+.mat-footer-row td:last-child {
+  background-color: #56ddf7;
+}
+
+table {
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 25px;
+}
+
+table td {
+  font-family: 'Roboto Mono', sans-serif;
+}
+
+th.mat-header-cell {
+  text-align: center !important;
+}
+
+.actions-container {
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.actions-container button {
+  background-color: #00c244;
+  padding: 5px 25px 5px 25px;
+}
+
+.actions-container button:nth-child(2) {
+  margin-left: 10px;
+}
+
+.actions-container button mat-icon {
+  margin-left: 5px;
+  color: white;
+}
+
+.back-container {
+  height: 50px;
+  line-height: 50px;
+}
+
+.logo-container {
+  width: 80%;
+  text-align: center;
+}
+
+.module-nav {
+  display: flex;
+  margin-left: 25px;
+}

@@ -1,0 +1,94 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <div style="
+      padding: 0px 37.5px 20px 37.5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+    ">
+    <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+      <div>
+        <mat-icon style="color: #28c00c">language</mat-icon>&nbsp;&nbsp;
+      </div>
+      <div>
+        <h5>Búsqueda de factura electrónica</h5>
+      </div>
+    </div>
+
+    <div style="background-color: #d6d6d68c; border-radius: 20px; padding: 10px">
+      <mat-slide-toggle formControlName="hasError">Incluir errores</mat-slide-toggle>
+    </div>
+  </div>
+
+  <div class="filter-container" style="display: flex; flex-direction: row; flex-wrap: wrap;">
+    <mat-form-field class="col-4 form-input">
+      <input matInput placeholder="DNI o Email" formControlName="sensitive" />
+      <mat-icon matSuffix>person</mat-icon>
+      <mat-error *ngIf="searchForm.get('sensitive').hasError('required')">
+        Se requiere un <strong>DNI o Email</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-4 form-input">
+      <mat-select placeholder="Sucursal" formControlName="branchOfficeNumber" disableOptionCentering>
+        <mat-option [value]="-1">Todas</mat-option>
+        <ng-container *ngFor="let suc of branchOffices">
+          <mat-option [value]="suc.numero">{{ suc.numero }} - {{ suc.nombre }}</mat-option>
+        </ng-container>
+      </mat-select>
+      <mat-error *ngIf="searchForm.get('branchOfficeNumber').hasError('required')">
+        Se requiere una <strong>Sucursal</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-4 form-input">
+      <input matInput placeholder="Desde" [matDatepicker]="fromPicker" [min]="minDate" [max]="maxDate" formControlName="fromDate" />
+      <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+      <mat-datepicker #fromPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="col-4 form-input">
+      <input matInput placeholder="Hasta" [matDatepicker]="toPicker" [min]="minDate" [max]="maxDate" formControlName="toDate" />
+      <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+      <mat-datepicker #toPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="col-4 form-input">
+      <mat-select placeholder="Caja" formControlName="pointOfSale" placeholder="Caja" disableOptionCentering>
+        <mat-option [value]="-1">Todas</mat-option>
+        <mat-option *ngFor="let pointOfSale of cmbPointsOfSale" [value]="pointOfSale">{{ pointOfSale }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="col-4 form-input">
+      <input matInput type="number" placeholder="Importe desde" formControlName="fromAmount" step="0.01" [min]="0" (change)="setTwoNumberDecimal($event)" />
+      <mat-icon matSuffix>attach_money</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="col-4 form-input">
+      <input matInput type="number" placeholder="Importe hasta" formControlName="toAmount" step="0.01" [min]="0" (change)="setTwoNumberDecimal($event)" />
+      <mat-icon matSuffix>attach_money</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="col-8 form-input">
+      <input matInput specialIsAlphaNumeric placeholder="Descripción CUF" formControlName="detailCUF" />
+    </mat-form-field>
+  </div>
+
+  <div style="display: flex; justify-content: center; margin-top: 0.75em">
+    <div>
+      <button class="btn-fe" type="submit" mat-button (ngSubmit)="onSubmit()">
+        <mat-icon style="color: white; transform: scaleX(-1); margin-bottom: 3px">search</mat-icon>&nbsp;&nbsp;Buscar
+        comprobantes
+      </button>
+    </div>
+    <!-- <div style="margin-left: 20px">
+      <button mat-button class="btn-fe" (click)="clearFilters()">
+        <mat-icon style="color: white; margin-bottom: 0.1rem"
+          >delete_sweep</mat-icon
+        >&nbsp;&nbsp;Limpiar filtros
+      </button>
+    </div> -->
+  </div>
+</form>

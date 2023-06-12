@@ -1,0 +1,80 @@
+.app-login {
+  background-color: #eaeaea;
+  background-image: url('../../assets/images/background-buscador.jpg') !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.content-main {
+  background: white;
+  padding: 0px;
+  box-shadow: 0px 2px 6px rgba(167, 167, 167, 0.5);
+  text-align: center;
+}
+
+.content-login {
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+}
+
+.content-login h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+.content-login div {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-login label {
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-login label.error {
+  font-weight: 300;
+  color: #f70303;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.content-logo img {
+  max-width: 185px;
+}
+
+.content-logo {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0px;
+}
+
+.button input {
+  border-radius: 4px;
+  background-color: #00c244;
+  color: #fff;
+  display: block;
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0 auto;
+  padding: 10px 0px;
+  color: white !important;
+  text-decoration: none;
+  width: 100%;
+  max-width: 370px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.button input:hover {
+  background: #028a32;
+}

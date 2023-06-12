@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="p-3">
+    <div class="row mb-1">
+      <div class="col">
+        <h2 mat-dialog-title>{{ modalConfig.tittle }}</h2>
+      </div>
+      <div *ngIf="modalConfig.showCrossButton" class="col-1 float-right">
+        <button
+          mat-button
+          mat-dialog-close
+          class="btn p-0 cross-button"
+          tabindex="-1"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <mat-dialog-content class="mat-typography">
+      {{ modalConfig.message }}
+
+      <div
+        class="mt-2"
+        [innerHtml]="modalConfig.body"
+        *ngIf="modalConfig.body !== null"
+      ></div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <div class="row mt-3">
+        <div class="col-12">
+          <button
+            class="btn btn-outline-secondary mr-3"
+            type="button"
+            (click)="confirmClicked()"
+            mat-button
+            mat-dialog-close
+          >
+            {{ modalConfig.btnLabel }}
+          </button>
+          <button
+            *ngIf="modalConfig.showCancelButton"
+            class="btn btn-secondary"
+            mat-button
+            mat-dialog-close
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </mat-dialog-actions>
+  </div>
+</div>

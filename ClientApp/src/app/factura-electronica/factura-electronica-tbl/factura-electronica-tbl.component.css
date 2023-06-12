@@ -1,0 +1,54 @@
+table {
+  width: 100%;
+}
+
+table tbody td.mat-cell {
+  border: 1px solid #d2d2d2 !important;
+}
+
+.truncate-cell {
+  max-width: 130px; /* feel free to include any other value */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-acciones {
+  color: #00c244;
+  background-color: transparent;
+  border-radius: 0;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+}
+
+.acciones,
+.acciones > td {
+  text-align: center;
+}
+
+.estado-icons mat-icon {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+mat-icon[ng-reflect-message='ERROR'] {
+  color: red;
+}
+
+mat-icon[ng-reflect-message='FACTURADO'] {
+  color: #00c244;
+}
+
+mat-icon[ng-reflect-message='PENDIENTE'] {
+  color: rgb(238, 223, 85);
+}
+
+/* fix this */
+table > tbody > tr:last-child > td {
+  border-bottom: 1px solid #d2d2d2 !important;
+}
+
+strong {
+  font-size: 1.1em;
+}

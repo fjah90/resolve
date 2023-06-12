@@ -1,0 +1,61 @@
+form {
+  padding: 10px 0px 5px 5px;
+  background-color: #e4e4e4;
+}
+
+mat-form-field {
+  width: 70%;
+}
+
+.close-button {
+  float: right;
+  top: -20px;
+  right: -20px;
+}
+
+.close-icon {
+  transition: 0.5s ease-in-out;
+}
+
+.close-icon:hover {
+  transform: rotate(180deg);
+}
+
+::ng-deep .icon-outside .close-button {
+  float: right;
+  top: -52px;
+  right: -52px;
+}
+
+::ng-deep .icon-outside .mat-dialog-container {
+  overflow: unset;
+}
+
+.btn-send {
+  background-color: #00c244;
+  color: white;
+}
+
+.btn-send:disabled {
+  background-color: #89f0ad;
+  color: white;
+}
+
+.btn-send-icon {
+  font-size: 1.2em;
+  margin-top: 5px;
+  color: white;
+}
+
+.receipt-icon {
+  color: #00c244;
+}
+
+.mat-form-field-infix {
+  margin-left: 10px;
+}
+
+input {
+  margin-bottom: 5px;
+  margin-left: 7.5px;
+}

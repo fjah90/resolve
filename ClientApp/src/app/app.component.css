@@ -1,0 +1,18 @@
+:focus {
+  outline: 0;
+}
+
+:link:focus,
+:visited:focus {
+  outline: none;
+}
+
+.overlay {
+  z-index: 9999999999999 !important;
+}
+
+a:focus,
+button:focus,
+svg:focus {
+  outline: none !important;
+}

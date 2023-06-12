@@ -1,0 +1,266 @@
+<div *ngIf="factura !== null && factura !== undefined" class="detail-container">
+  <div style="margin-top: 25px">
+    <div class="module-nav">
+      <div clas="back-container">
+        <button mat-button aria-label="Volver" (click)="clear()">
+          <mat-icon>arrow_back</mat-icon> Volver
+        </button>
+      </div>
+
+      <div class="logo-container">
+        <img src="../../../assets/images/farmacity.png" style="width: 30%" />
+      </div>
+    </div>
+
+    <br />
+
+    <div style="padding: 5px">
+      <div style="display: flex; justify-content: center">
+        <div><strong>Estado</strong><br /></div>
+      </div>
+
+      <div style="display: flex; justify-content: center">
+        <ng-container *ngIf="factura.Estado === EstadoAFIP.FACTURADO"
+          ><span style="color: #009133; font-weight: bold"
+            >FACTURADO</span
+          ></ng-container
+        >
+        <ng-container *ngIf="factura.Estado === EstadoAFIP.PENDIENTE"
+          ><span style="color: rgb(109, 109, 109); font-weight: bold"
+            >PENDIENTE</span
+          ></ng-container
+        >
+        <ng-container *ngIf="factura.Estado === EstadoAFIP.ERROR"
+          ><span style="color: #ea0000; font-weight: bold"
+            >ERROR AL FACTURAR</span
+          ></ng-container
+        >
+      </div>
+    </div>
+
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+
+    <div
+      class="actions-container"
+      *ngIf="factura.Estado === EstadoAFIP.FACTURADO"
+    >
+      <div>
+        <button mat-button aria-label="Descargar" (click)="download()">
+          Descargar
+          <mat-icon>download</mat-icon>
+        </button>
+        <button mat-button aria-label="Reenviar" (click)="handleForward()">
+          Reenviar
+          <mat-icon>forward_to_inbox</mat-icon>
+        </button>
+      </div>
+
+      <!-- <button
+        mat-button
+        matTooltip="Actualizar email"
+        aria-label="Actualizar"
+        (click)="handleUpdate()"
+      >
+        <mat-icon>build</mat-icon>
+      </button> -->
+    </div>
+
+    <div *ngIf="factura.Estado === EstadoAFIP.ERROR">
+      <div style="text-align: center">
+        <p>Mensaje de error:</p>
+      </div>
+
+      <div style="display: flex; justify-content: center">
+        <div *ngIf="factura.ErrorMessage === null; else error">
+          <span style="font-weight: bold">- Sin mensaje de error -</span>
+        </div>
+        <ng-template #error>
+          <pre class="error-message" style="padding: 15px">
+           <span> {{ factura.ErrorMessage }}
+           </span>
+      </pre>
+        </ng-template>
+      </div>
+    </div>
+
+    <br />
+
+    <mat-grid-list cols="2" rowHeight="175px">
+      <mat-grid-tile>
+        <mat-list>
+          <mat-list-item>
+            <mat-icon mat-list-icon>person</mat-icon>
+            <p mat-line>
+              <span class="detail-name">Apellido y Nombre:</span>&nbsp;&nbsp;{{
+                factura.NombreCliente
+              }}
+            </p>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon mat-list-icon>receipt</mat-icon>
+            <p mat-line>
+              <span class="detail-name">Número de comprobante:</span
+              >&nbsp;&nbsp;
+              {{ factura.Numero }}
+            </p>
+            <p mat-line>
+              <span class="detail-name">Número de comprobante Farmacity:</span
+              >&nbsp;&nbsp;
+              {{ factura.NroComprobanteFarma }}
+            </p>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon mat-list-icon>receipt_long</mat-icon>
+            <p mat-line>
+              <span class="detail-name">Tipo de comprobante:</span>&nbsp;&nbsp;
+              {{ factura.Tipo }}
+            </p>
+          </mat-list-item>
+        </mat-list>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-list>
+          <mat-list-item>
+            <mat-icon mat-list-icon>mail_outline</mat-icon>
+            <p mat-line>
+              <span class="detail-name">Email:</span>&nbsp;&nbsp;{{
+                factura.Email
+              }}
+            </p>
+          </mat-list-item>
+
+          <mat-list-item>
+            <mat-icon mat-list-icon>security</mat-icon>
+            <p mat-line>
+              <span class="detail-name">CAE:</span>&nbsp;&nbsp;
+              <ng-container *ngIf="factura.CAE === null; else showCAE">
+                -</ng-container
+              >
+              <ng-template #showCAE> {{ factura.CAE }}</ng-template>
+            </p>
+          </mat-list-item>
+
+          <mat-list-item>
+            <mat-icon mat-list-icon>event_busy</mat-icon>
+            <p mat-line>
+              <span class="detail-name">Vencimiento CAE:</span>&nbsp;&nbsp;
+              <ng-container *ngIf="factura.CAE === null; else showVENCIMIENTO">
+                -</ng-container
+              >
+              <ng-template #showVENCIMIENTO>{{
+                factura.VencimientoCAE | date: 'dd/MM/yyyy'
+              }}</ng-template>
+            </p>
+          </mat-list-item>
+        </mat-list>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div style="margin-top: 15px; margin-bottom: 15px">
+    <h4 class="product-title">Detalle de productos</h4>
+  </div>
+
+  <table mat-table [dataSource]="dataSource">
+    <!-- SKU Column -->
+    <ng-container matColumnDef="Sku">
+      <th mat-header-cell *matHeaderCellDef>
+        <strong>SKU</strong>
+      </th>
+      <td mat-cell *matCellDef="let detail">
+        <span>{{ detail.Sku }}</span>
+      </td>
+      <td mat-footer-cell *matFooterCellDef>Total $</td>
+    </ng-container>
+
+    <!-- Product Column -->
+    <ng-container matColumnDef="Nombre">
+      <th mat-header-cell *matHeaderCellDef>
+        <strong>Producto</strong>
+      </th>
+      <td mat-cell *matCellDef="let detail">
+        <span>{{ detail.Nombre }}</span>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- Unidades Column -->
+    <ng-container matColumnDef="Unidades">
+      <th mat-header-cell *matHeaderCellDef>
+        <strong>Unidades</strong>
+      </th>
+      <td mat-cell *matCellDef="let detail">
+        <span>{{ detail.Unidades }}</span>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- PrecioUnitario Column -->
+    <ng-container matColumnDef="PrecioUnitario">
+      <th mat-header-cell *matHeaderCellDef>
+        <strong>Precio Unitario</strong>
+      </th>
+      <td mat-cell *matCellDef="let detail">
+        <span>{{ detail.PrecioUnitario | pesos }}</span>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- PrecioTotal Column -->
+    <ng-container matColumnDef="PrecioTotal">
+      <th mat-header-cell *matHeaderCellDef>
+        <strong>Subtotal</strong>
+      </th>
+      <td mat-cell *matCellDef="let detail">
+        <span>{{ detail.PrecioTotal | pesos }}</span>
+      </td>
+      <td mat-footer-cell *matFooterCellDef>
+        {{ factura.Total | pesos }}
+      </td>
+    </ng-container>
+
+    <!-- Descuentos Column -->
+    <ng-container matColumnDef="Descuento">
+      <th mat-header-cell *matHeaderCellDef>
+        <strong>Descuento</strong>
+      </th>
+      <td mat-cell *matCellDef="let detail">
+        <ng-container *ngIf="detail.Descuento === 0; else showDescuento"
+          ><span>-</span></ng-container
+        >
+        <ng-template #showDescuento>
+          <span>
+            {{ detail.Descuento | pesos }}
+          </span></ng-template
+        >
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- PrecioTotalDescuento Column -->
+    <ng-container matColumnDef="PrecioTotalDescuento">
+      <th mat-header-cell *matHeaderCellDef>
+        <strong>Total con Descuento</strong>
+      </th>
+      <td mat-cell *matCellDef="let detail">
+        <span>{{ detail.PrecioTotal + detail.Descuento | pesos }}</span>
+      </td>
+      <td mat-footer-cell *matFooterCellDef>
+        {{ factura.TotalConDescuento | pesos }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr
+      mat-footer-row
+      *matFooterRowDef="displayedColumns"
+      style="font-weight: 900"
+    ></tr>
+  </table>
+</div>

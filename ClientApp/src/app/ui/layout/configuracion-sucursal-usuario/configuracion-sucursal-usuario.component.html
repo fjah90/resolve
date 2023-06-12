@@ -1,0 +1,96 @@
+<div class="container">
+  <div class="p-3">
+    <div class="row mb-2">
+      <div class="col">
+        <h2 mat-dialog-title>Configuración de datos de usuario temporal.</h2>
+      </div>
+
+      <div class="col-1 float-right">
+        <button
+          mat-button
+          mat-dialog-close
+          class="btn p-0 cross-button"
+          tabindex="-1"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <mat-dialog-content class="mat-typography">
+      <form [formGroup]="updateSucursalUsr" class="form-cupos-producto">
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="col-12">
+              <input
+                matInput
+                id="Usuario"
+                placeholder="Usuario"
+                formControlName="Usuario"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="col-6">
+              <input
+                type="number"
+                min="0"
+                matInput
+                formControlName="codUsuario"
+                placeholder="Código de usuario/ legajo"
+              />
+            </mat-form-field>
+
+            <mat-form-field class="col-6">
+              <mat-select formControlName="sucursales" placeholder="Sucursal">
+                <input
+                  class="myInput"
+                  type="text"
+                  placeholder="Sucursal"
+                  matInput
+                  #filtroSucursal
+                  (keyup)="filterSucursales($event.target.value)"
+                />
+                <mat-option
+                  *ngFor="let sucursal of Sucursales"
+                  [value]="sucursal.sucursal"
+                  >{{ sucursal.nomSucursal }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </mat-dialog-content>
+
+    <mat-divider></mat-divider>
+
+    <!-- CONFIRMACION DE DATOS -->
+    <mat-dialog-actions align="end">
+      <div class="row mt-2">
+        <div class="col-12">
+          <!-- <button class="btn btn-primary btn-lg mr-3" type="button" [disabled]="editCupoForm.invalid" (click)="setUpdateCupos()">Aceptar</button> -->
+          <button
+            class="btn btn-primary btn-lg mr-3"
+            type="button"
+            (click)="updateSucursal()"
+          >
+            Aceptar
+          </button>
+          <button
+            class="btn btn-outline-primary btn-lg mr-3"
+            type="button"
+            mat-dialog-close
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </mat-dialog-actions>
+  </div>
+</div>

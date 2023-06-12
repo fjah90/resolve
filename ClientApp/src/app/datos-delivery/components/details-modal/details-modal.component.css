@@ -1,0 +1,22 @@
+table {
+  width: 100%;
+}
+.row {
+  width: 100%;
+}
+
+.mat-row:hover {
+  background-color: #f6f6f6;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.button {
+  margin: 20px;
+}
+
+.headers {
+  background-color: #f6f6f6;
+}

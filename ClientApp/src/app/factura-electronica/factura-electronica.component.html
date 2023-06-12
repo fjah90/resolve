@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <div id="search-container" [hidden]="selectedFactura !== null">
+    <app-factura-electronica-search
+      [sensitiveRequired$]="sensitiveRequired$"
+      [dateWindow$]="dateWindow$"
+      [branchOffices]="branchOffices"
+      [currentBranchOffice$]="currentBranchOffice$"
+      (submitForm)="handleSubmit($event)"
+    ></app-factura-electronica-search>
+  </div>
+  
+  <div id="result-container">
+    <app-factura-electronica-tbl
+      [hidden]="(selectedFactura !== null)||(this.facturaList?.length === 0 && this.selectedFactura === null)"
+      [facturaList]="facturaList"
+      (factura)="expand($event)"
+    ></app-factura-electronica-tbl>
+  
+    <app-factura-electronica-detail
+      *ngIf="this.selectedFactura !== null"
+      [factura]="selectedFactura"
+      (clearFactura)="this.selectedFactura = null"
+    ></app-factura-electronica-detail>
+  
+    <div    
+      [hidden]="this.facturaList?.length"
+      id="empty-container"
+    >
+      <mat-icon>search</mat-icon>
+      <h4>Sin resultados</h4>
+    </div>
+  </div>
+</div>

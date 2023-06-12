@@ -1,0 +1,58 @@
+<ul>
+  <ng-container *ngFor="let item of listItems">
+    <ng-container *ngIf="item.subItems.length > 0 && !item.disabled">
+      <a
+        (click)="showElemento(item)"
+        [ngClass]="{ disabled: item.disabled }"
+        matTooltip="{{ item.description }}"
+        matTooltipPosition="right"
+      >
+        <p [ngClass]="{ collapsed: !item.show }">
+          <mat-icon>{{ item.icon }}</mat-icon>
+        </p>
+      </a>
+    </ng-container>
+
+    <ng-container *ngIf="item.subItems.length === 0 && !item.disabled">
+      <a
+        (click)="goToPath(item.routePath)"
+        routerLinkActive="active"
+        [ngClass]="{ disabled: item.disabled }"
+        matTooltip="{{ item.description }}"
+        matTooltipPosition="right"
+      >
+        <p [ngClass]="{ collapsed: !item.show }">
+          <mat-icon>{{ item.icon }}</mat-icon>
+        </p>
+      </a>
+    </ng-container>
+
+    <ul class="collapse" [ngClass]="{ show: item.show }">
+      <ng-container *ngFor="let subItem of item.subItems">
+        <li>
+          <a
+            [routerLink]="subItem.routePath"
+            routerLinkActive="active"
+            [ngClass]="{ disabled: subItem.disabled }"
+            matTooltip="{{ item.description }}"
+            matTooltipPosition="right"
+          >
+            <p [ngClass]="{ collapsed: !subItem.show }">
+              <mat-icon>{{ subItem.icon }}</mat-icon>
+            </p>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </ng-container>
+  <a
+    (click)="toggleClick()"
+    matTooltip="Abrir menú"
+    matTooltipPosition="right"
+    class="close-menu"
+  >
+    <p>
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </p>
+  </a>
+</ul>

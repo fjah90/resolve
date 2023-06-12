@@ -1,0 +1,20 @@
+.btn-fe {
+  padding: 5px 20px;
+  background-color: #00c244;
+  color: white;
+  border-radius: 9999px;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.filter-container div {
+  min-width: 275px !important;
+}
+
+.filter-container mat-form-field {
+  width: 100%;
+}

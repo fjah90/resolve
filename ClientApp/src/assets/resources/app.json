@@ -1,0 +1,22 @@
+{
+  "delivery": {
+    "actions": {}
+  },
+  "facturaElectronica": {
+    "getSucursales": {
+      "error": "Ocurrió un error al intentar popular la lista de sucursales"
+    },
+
+    "getAll": {
+      "error": "Ocurrió un error en la búsqueda de comprobantes"
+    },
+    "download": {
+      "success": "El comprobante se descargó satisfactoriamente",
+      "error": "Ocurrió un error inesperado al intentar descargar el comprobante"
+    },
+    "forward": {
+      "success": "El comprobante se reenvió satisfactoriamente",
+      "error": "Ocurrió un error inesperado al intentar reenviar el comprobante"
+    }
+  }
+}

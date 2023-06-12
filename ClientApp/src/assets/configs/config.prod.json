@@ -1,0 +1,16 @@
+{
+  "endpoints": {
+    "omni": {
+      "uri": "https://suc#.farmacity.com.ar/wsPDVAutocobroApi/",
+      "key": null
+    },
+    "fec": {
+      "uri": "https://efactura-prod.farmacity.com.ar",
+      "key": "m/s4AWPVGo3y6WOytyXn341i465r+KKbD5b1VVo7g0w="
+    }
+  },
+  "editarSucursal": "false",
+  "sucursales": [6, 8],
+  "sensitiveRequired": false,
+  "dateWindow": 30
+}

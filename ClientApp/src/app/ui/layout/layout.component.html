@@ -1,0 +1,123 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <div id="header">
+      <div id="logoContent">
+        <img src="./assets/images/logo-farmacity-white.svg" class="logo" />
+      </div>
+
+      <div id="nombreSucursalContent">
+        <h3 class="nombreSucursal" *ngIf="nombreSucursal">
+          Sucursal {{ nombreSucursal }}
+        </h3>
+      </div>
+
+      <div id="sucursalContent">
+        <form [formGroup]="formSucursal" *ngIf="formSucursal">
+          <mat-form-field
+            appearance="outline"
+            id="matFormSucursal"
+            *ngIf="!nombreSucursal || EditarSucursal"
+          >
+            <mat-label
+              class="matLabel"
+              *ngIf="
+                !changeSucursalValue && formSucursal.controls['sucursal'].value
+              "
+              >Número de sucursal configurada:</mat-label
+            >
+            <mat-label
+              class="matLabel"
+              *ngIf="
+                changeSucursalValue && formSucursal.controls['sucursal'].value
+              "
+              >Haga click en editar para cambiar su sucursal:</mat-label
+            >
+            <mat-label
+              class="matLabel"
+              *ngIf="EditarSucursal && !formSucursal.controls['sucursal'].value"
+              >¿En cual sucursal se encuentra?</mat-label
+            >
+            <input
+              id="sucursalInput"
+              formControlName="sucursal"
+              type="number"
+              matInput
+              (input)="changeSucursal()"
+              (keydown.enter)="setSucursal()"
+            />
+            <mat-icon
+              matTooltip="Editar"
+              (click)="setSucursal()"
+              id="saveSucursal"
+              *ngIf="EditarSucursal"
+              matSuffix
+              >edit</mat-icon
+            >
+          </mat-form-field>
+        </form>
+      </div>
+
+      <div id="usuarioContent">
+        <span class="example-spacer"></span>
+        <h6 style="display: inline-block; color: white; padding-right: 20px">
+          {{ nombreUsuario }}
+        </h6>
+      </div>
+
+      <!--<span data-toggle="tooltip" data-placement="right" title="Usuario">
+
+            <button mat-icon-button [matMenuTriggerFor]="menuUsuario" class="notification">
+                <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-menu #menuUsuario="matMenu">
+                <h6 style="display: inline-block;">{{nombreUsuario}}</h6>
+                <button class="col-2 mat-button-settings" (click)="openCambioSucursal()" title="Configuración de sucursal">
+                    <mat-icon>settings</mat-icon>
+                </button>
+                <mat-divider></mat-divider>
+                <p class="profile">
+                    <b>Cod. Usuario:</b> {{CodUsuario}} <br>
+                    <b>Sucursal:</b> {{SucursalId}}
+                </p>
+            </mat-menu>
+        </span> -->
+      <div id="dividerContent">
+        <mat-divider id="divider" [vertical]="true"></mat-divider>
+      </div>
+
+      <div id="logoutContent">
+        <a (click)="logOut()" matTooltip="Cerrar Sesión" class="logout">
+          <mat-icon>exit_to_app</mat-icon>
+        </a>
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<ng-sidebar-container class="full-height wrapper-container">
+  <ng-sidebar
+    [(opened)]="_opened"
+    [mode]="'push'"
+    [dock]="true"
+    [dockedSize]="'65px'"
+    [sidebarClass]="'sidebar-menu'"
+  >
+    <!-- A sidebar -->
+
+    <ng-container *ngIf="_opened">
+      <app-side-nav (onToggleMenu)="_toggleSidebar()"></app-side-nav>
+    </ng-container>
+    <ng-container *ngIf="!_opened">
+      <app-side-nav-icons
+        (onToggleMenu)="_toggleSidebar()"
+      ></app-side-nav-icons>
+    </ng-container>
+  </ng-sidebar>
+
+  <!-- Page content -->
+  <div ng-sidebar-content class="full-height">
+    <div class="container-fluid full-height">
+      <router-outlet (activate)="onActivate($event)"></router-outlet>
+    </div>
+  </div>
+</ng-sidebar-container>

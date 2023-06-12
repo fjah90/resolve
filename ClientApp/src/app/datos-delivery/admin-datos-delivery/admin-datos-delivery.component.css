@@ -1,0 +1,201 @@
+#filters {
+  position: relative;
+  text-align: center;
+}
+
+mat-form-field {
+  width: 100%;
+  min-width: 30px;
+}
+
+.divContainer {
+  padding: 0px;
+}
+
+.CardContainer {
+  height: 100%;
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: '#fafafa';
+  color: black;
+  padding: 0px;
+}
+
+.paymentMethodInput {
+  width: 120px;
+}
+
+.workDateInput {
+  width: 90px;
+}
+
+.brandInput {
+  width: 140px;
+}
+
+.idMPoperation {
+  width: 120px;
+}
+
+.cardNumbersInput {
+  width: 70px;
+}
+
+.priceInput {
+  width: 70px;
+}
+
+.couponNumberInput {
+  width: 70px;
+}
+
+.feeInput {
+  width: 70px;
+}
+
+.pointOfSaleInput {
+  width: 30px;
+}
+
+.noDataInput {
+  width: 40px;
+}
+
+.applicationNumberInput {
+  width: 70px;
+}
+
+.mat-toolbar {
+  font-size: 14px;
+}
+
+.card {
+  width: 100%;
+  padding: 0px;
+}
+
+table {
+  width: 100%;
+}
+
+.row {
+  width: 100%;
+}
+
+button.mat-raised-button {
+  margin: 0px 15px;
+}
+
+.mat-toolbar {
+  font-size: 14px;
+}
+
+.search-btn mat-icon,
+.cleanfilter-btn mat-icon,
+.add-btn mat-icon,
+.filter-btn.doubleicon mat-icon {
+  padding-right: 25px;
+}
+
+.search-btn label,
+.cleanfilter-btn label,
+.add-btn label,
+.filter-btn.doubleicon label {
+  margin-bottom: 2px;
+  padding-right: 10px;
+}
+
+/* AGREGADO DE EXPANSION DE ROW */
+
+tr.example-detail-row {
+  height: 0;
+  background-color: azure;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+  height: 150px;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid #00c244;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 130px;
+}
+
+.example-element-nPedido {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-name {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.envio {
+  font-size: 18px;
+  color: #00c244;
+}
+
+.pet {
+  color: #00c244;
+  font-size: 18px;
+  padding-top: 5px;
+}
+
+.myInput {
+  height: 50px;
+  padding: 10px;
+}
+
+form {
+  margin: 0px;
+}
+
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
+
+.nonSucursal {
+  display: none;
+}
+
+td.mat-cell,
+td.mat-footer-cell,
+th.mat-header-cell {
+  padding: 0px 10px !important;
+}
+
+.mat-dialog-buttons {
+  justify-content: space-evenly;
+}
+
+/* FIN AGREGADO DE EXPANSION DE ROW */

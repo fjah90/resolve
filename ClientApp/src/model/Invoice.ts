@@ -1,0 +1,47 @@
+import { Item } from './item';
+import { Iva } from './iva';
+
+export interface Invoice {
+  BranchOffice: number;
+  PointOfSale: number;
+  OpeningNumber: number;
+  InvoiceType: string;
+  InvoiceID: number;
+  WorkDate: Date;
+  PointOfSaleAfip: number;
+  IsAsync: boolean;
+  ItemsSubtotal: number;
+  Discounts: number;
+  SubtotalWithDiscounts: number;
+  Total: number;
+  Cae: number;
+  CaeExpiration: Date;
+  QuantityToRegistry: number;
+  AfipInvoiceType: number;
+  Concept: number;
+  IdType: number;
+  IdNumber: number;
+  InvoiceNumberFrom: number;
+  InvoiceNumberTo: number;
+  InvoiceGenerationDate: string;
+  TotalAmount: number;
+  NotTaxedAmount: number;
+  TaxedAmount: number;
+  ExemptAmount: number;
+  IvaAmount: number;
+  TributeAmount: number;
+  CurrencyType: string;
+  CurrencyQuote: number;
+  CustomerEmail: string;
+  Items: Item[];
+  Ivas: Iva[];
+  ClientFullName: string;
+  ClientAdress: string;
+  ClientLocality: string;
+  CommercialAdress: string;
+  Error: boolean;
+  ErrorMessage: string;
+  CompanyFormat: string;
+  ReferenceId: string;
+  NroOrden: string;
+}

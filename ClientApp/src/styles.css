@@ -1,0 +1,270 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~font-awesome/css/font-awesome.css';
+
+/* html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+
+html {
+  margin: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+body,
+app-root,
+.app-frame {
+  height: calc(100% - 64px) !important;
+  box-sizing: border-box;
+}
+body {
+  min-width: 900px;
+}
+thead,
+mat-paginator {
+  background: #f6f6f6 !important;
+}
+.mat-menu-panel .mat-menu-content hr {
+  margin: 0px;
+}
+.email-text .angular-editor-textarea {
+  min-height: calc(100vh - 350px) !important;
+  max-height: calc(100vh - 350px) !important;
+}
+.style-success {
+  text-align: center !important;
+  color: white;
+  background-color: green;
+}
+
+simple-snack-bar span {
+  margin: auto;
+  text-align: center;
+}
+
+.style-error {
+  text-align: center;
+  color: white;
+  background-color: red;
+}
+
+.style-error .mat-button-wrapper {
+  color: white;
+}
+
+.style-info {
+  text-align: center;
+  color: white;
+  background-color: #007bff;
+}
+
+.style-warning {
+  color: black;
+  background-color: #ffc107;
+}
+
+.mat-primary .mat-pseudo-checkbox-checked,
+.mat-primary .mat-pseudo-checkbox-indeterminate {
+  background: #ff5e00;
+}
+
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #ff5e00;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #ff5e00;
+}
+
+.mat-accent .mat-pseudo-checkbox-checked,
+.mat-accent .mat-pseudo-checkbox-indeterminate,
+.mat-pseudo-checkbox-checked,
+.mat-pseudo-checkbox-indeterminate {
+  background-color: #ff5e00;
+}
+
+.mat-checkbox {
+  justify-content: center;
+  display: flex;
+}
+.mat-checkbox label {
+  margin: 0px;
+}
+
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: #00c244;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: #00c244;
+}
+
+.mat-progress-bar-fill::after {
+  background-color: #00c244;
+}
+
+.mat-progress-bar-buffer {
+  background-color: rgba(0, 194, 68, 0.5);
+}
+
+.mat-progress-bar-background {
+  fill: rgba(0, 194, 68, 0);
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: rgba(0, 194, 68, 0.54);
+}
+
+td p {
+  margin: 0px;
+}
+
+button:focus {
+  outline: 0px !important;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar,
+.mat-fab.mat-primary,
+.mat-flat-button.mat-primary,
+.mat-mini-fab.mat-primary,
+.mat-raised-button.mat-primary {
+  background-color: #00c244;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #00c244 !important;
+  border-color: #00c244 !important;
+}
+.btn-outline-primary {
+  color: #00c244 !important;
+  border-color: #00c244 !important;
+}
+.btn-outline-primary:hover,
+.btn-outline-primary:hover {
+  color: #fff !important;
+  background-color: #00c244 !important;
+  border-color: #00c244 !important;
+}
+.mat-tree {
+  background: #f5f5f5;
+  margin: 0px -24px -16px;
+}
+.mat-tree-node {
+  border-bottom: 1px solid #eee;
+}
+mat-list-option {
+  height: 40px;
+}
+
+.mat-list-text {
+  font-size: 14px;
+}
+.spinner {
+  font-size: 20px;
+  color: white;
+}
+
+.update-date {
+  padding: 10px 0px;
+  font-size: 12px;
+}
+
+.mat-step-header .mat-step-icon-selected,
+.mat-step-header .mat-step-icon-state-done,
+.mat-step-header .mat-step-icon-state-edit {
+  background-color: #00c244;
+  color: #fff;
+}
+
+.mat-step-header .mat-step-label,
+.mat-step-header .mat-step-optional {
+  color: #00c244;
+}
+
+.mat-step-header .mat-step-label.mat-step-label-active {
+  color: #00c244;
+}
+
+.mat-step-header .mat-step-label,
+.mat-step-header .mat-step-optional {
+  color: rgba(0, 196, 68, 0.7);
+}
+
+.resultadosBusqueda {
+  color: gray;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 200;
+  height: 50px !important;
+  padding: 15px !important;
+}
+
+@media (orientation: landscape) {
+  #landscape {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+  }
+}
+
+.mat-menu-content {
+  width: 280px;
+  padding: 5px;
+}
+
+.cdk-overlay-pane.my-dialog {
+  position: relative !important;
+}
+.close.mat-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  line-height: 14px;
+  min-width: auto;
+}
+
+/* app-email-handler .mat-form-field-prefix {
+  top: 3.5px;
+  padding-right: 5px;
+  font-size: 0.8em;
+  color: #434343;
+} */
+
+.mat-focused .mat-form-field-label {
+  color: #00c244 !important;
+}
+
+.mat-form-field-underline {
+  background-color: #cccccc !important;
+}
+
+.mat-form-field-ripple {
+  background-color: #00c244 !important;
+}
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #019936 !important;
+}
+
+#search-container .mat-form-field-suffix {
+  font-size: 12px !important;
+  margin-top: auto !important;
+  color: rgba(0, 0, 0, 0.54) !important;
+}
+
+#search-container .mat-form-field-flex {
+  background-color: #dbdbdb;
+  padding: 10px 10px 2.5px 10px;
+}
+
+mat-datepicker-toggle {
+  font-size: 22.5px;
+  color: rgb(0 173 61) !important;
+}

@@ -1,0 +1,20 @@
+{
+  "menuItems": [
+    {
+      "routePath": "datos-delivery",
+      "description": "Datos Delivery",
+      "disabled": false,
+      "show": false,
+      "icon": "pedal_bike",
+      "subItems": []
+    },
+    {
+      "routePath": "factura-electronica",
+      "description": "Factura Electrónica",
+      "disabled": false,
+      "show": false,
+      "icon": "request_quote",
+      "subItems": []
+    }
+  ]
+}
